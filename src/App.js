@@ -1,12 +1,14 @@
+import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
 import NavbarComponent from './components/Navbar';
 import Home from './pages/Home/Home';
 import Details from './pages/Details/Details';
-import About from './pages/About/About';
+import FallbackComponent from './components/FallbackComponent';
 import './App.scss';
 
+const About = lazy(() => import('./pages/About/About'));
 
 function App() {
 	return (
@@ -17,7 +19,11 @@ function App() {
 					<Route path='/' element={<Home />} />
 					<Route
 						path='/about'
-						element={<About />}
+						element={
+							<Suspense fallback={<FallbackComponent />}>
+								<About />
+							</Suspense>
+						}
 					/>
 					<Route path='/details/:id' element={<Details />} />
 				</Routes>
