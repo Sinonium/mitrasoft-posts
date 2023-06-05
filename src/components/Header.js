@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
-import { Link, NavLink } from 'react-router-dom';
+import { Container, Image, Nav, NavDropdown, Navbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 
 const Header = () => {
@@ -8,20 +8,33 @@ const Header = () => {
 		<header className='header'>
 			<Navbar className='mb-3' expand='md' variant='dark' bg='dark'>
 				<Container>
-					<Navbar.Brand>My Posts</Navbar.Brand>
 					<Navbar.Toggle aria-controls='navbar-dark-example' />
 					<Navbar.Collapse id='navbar-dark-example'>
-						<Nav className='header__nav'>
+						<Navbar.Brand>My Posts</Navbar.Brand>
+						<Nav>
 							<NavDropdown
+								drop='start'
 								id='nav-dropdown-dark-example'
 								title={<FaBars />}
 								menuVariant='dark'>
-								<NavDropdown.Item exact to='/' as={Link}>
+								<NavDropdown.Item exact as={Link} to='/'>
 									Список постов
 								</NavDropdown.Item>
-								<NavDropdown.Item exact to='/about' as={Link}>
+								<NavDropdown.Item exact as={Link} to='/about'>
 									Обо мне
 								</NavDropdown.Item>
+								<NavDropdown.Divider />
+								<NavDropdown.Item className='text-center' disabled>
+									<Image
+										width={50}
+										roundedCircle
+										alt='avatar'
+										src='https://img.hhcdn.ru/photo/725020558.jpeg?t=1686084281&h=NCTtue0y4-1UrnUeXTryrw'
+									/>
+								</NavDropdown.Item>
+								<NavDropdown.Item className='text-center' disabled>Нурсултан</NavDropdown.Item>
+								<NavDropdown.Item disabled>sinoniumx@gmail.com</NavDropdown.Item>
+								<Navbar.Text></Navbar.Text>
 							</NavDropdown>
 						</Nav>
 					</Navbar.Collapse>
