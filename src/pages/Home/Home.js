@@ -7,24 +7,31 @@ import FilterAndSort from '../../components/FilterAndSort';
 import { useFilterSort } from '../../hooks/useFilterSort';
 import FallbackComponent from '../../components/FallbackComponent';
 import './index.scss';
+import { Col } from 'react-bootstrap';
+import PaginationComponent from '../../components/UI/PaginationComponent';
 
 const Home = () => {
 	const dispatch = useDispatch();
 	const { posts, loading, error } = useSelector((state) => state.post);
 	const [filter, setFilter] = useState({ sort: '', query: '' });
 	const [filterValueDebounced, setFilterValueDebounced] = useState('');
+	const [activePage, setActivePage] = useState(1);
+	const totalPages = 10;
 
 	const debouncedFilter = useDebounce(filterValueDebounced, 700);
 	const sortedAndSearchedPosts = useFilterSort(posts, filter.sort, debouncedFilter);
+
+	const handlePageChange = (pageNumber) => {
+		setActivePage(pageNumber);
+		dispatch(getPostsAsync({ _limit: 10, _page: pageNumber }));
+	};
 
 	const handleFilterChange = (event) => {
 		setFilterValueDebounced(event.target.value);
 	};
 
 	useEffect(() => {
-		if (posts.length === 0) {
-			dispatch(getPostsAsync({ _limit: 20 }));
-		}
+		dispatch(getPostsAsync({ _limit: 10 }));
 	}, []);
 
 	return (
@@ -43,6 +50,13 @@ const Home = () => {
 			{posts && sortedAndSearchedPosts.length > 0 && (
 				<PostList posts={sortedAndSearchedPosts} />
 			)}
+			<Col className='d-flex justify-content-center'>
+				<PaginationComponent
+					activePage={activePage}
+					totalPages={totalPages}
+					onPageChange={handlePageChange}
+				/>
+			</Col>
 		</>
 	);
 };
