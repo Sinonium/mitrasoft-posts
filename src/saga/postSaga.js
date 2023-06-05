@@ -15,6 +15,21 @@ function* fetchPostsWorker(action) {
    }
 }
 
+function* fetchPostsByIdWorker(action) {
+   try {
+      yield put(getPosts())
+      const response = yield axios.get(`${API_URL}/posts`,{
+         params: {
+            userId: action.payload
+         }
+      })
+      yield put(getPostsSuccess(response.data))
+   } catch (e) {
+      yield put(getPostsError(e.message))
+   }
+}
+
 export function* postsWatcher() {
    yield takeEvery('GET_POSTS_RESPONSE_ASYNC', fetchPostsWorker)
+   yield takeEvery('GET_POSTS_RESPONSE_BY_ID_ASYNC', fetchPostsByIdWorker)
 }

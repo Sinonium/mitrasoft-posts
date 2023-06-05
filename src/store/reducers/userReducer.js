@@ -8,6 +8,7 @@ const GET_USER_RESPONSE = 'GET_USER_RESPONSE'
 const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
 const GET_USER_ERROR = 'GET_USER_ERROR'
 const GET_USER_RESPONSE_ASYNC = 'GET_USER_RESPONSE_ASYNC'
+const GET_POSTS_RESPONSE_BY_ID_ASYNC = 'GET_POSTS_RESPONSE_BY_ID_ASYNC'
 
 
 export const userReducer = (state = initialState, action) => {
@@ -37,6 +38,7 @@ export const userReducer = (state = initialState, action) => {
 };
 
 export const getUserAsync = (payload) => ({type: GET_USER_RESPONSE_ASYNC, payload})
+export const getUserByIdAsync = (payload) => ({type: GET_POSTS_RESPONSE_BY_ID_ASYNC, payload})
 export const getUser = () => ({type: GET_USER_RESPONSE})
 export const getUserSuccess = (payload) => ({type: GET_USER_SUCCESS, payload})
 export const getUserError = (payload) => ({type: GET_USER_ERROR, payload})

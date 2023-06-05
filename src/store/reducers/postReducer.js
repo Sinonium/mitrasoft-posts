@@ -17,6 +17,7 @@ export const postReducer = (state = initialState, action) => {
 		case GET_POSTS_RESPONSE:
 			return {
 				...state,
+        		posts: [],
 				loading: true,
 			};
 		case GET_POSTS_SUCCESS:
