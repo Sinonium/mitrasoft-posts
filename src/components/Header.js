@@ -9,7 +9,7 @@ const Header = () => {
 			<Navbar className='mb-3' expand='md' variant='dark' bg='dark'>
 				<Container>
 					<Navbar.Toggle aria-controls='navbar-dark-example' />
-					<Navbar.Collapse id='navbar-dark-example'>
+					<Navbar.Collapse className='justify-content-between' id='navbar-dark-example'>
 						<Navbar.Brand>My Posts</Navbar.Brand>
 						<Nav>
 							<NavDropdown
