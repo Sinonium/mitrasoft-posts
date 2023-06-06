@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Pagination } from 'react-bootstrap';
 
 const PaginationComponent = ({ activePage, totalPages, onPageChange, isSmallScreen }) => {

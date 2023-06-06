@@ -12,9 +12,9 @@ const FilterAndSort = ({ filter, setFilter, handleFilterChange, filterValue, han
 	};
 
 	return (
-		<Form.Group controlId='filterAndSort'>
+		<Form.Group className='mb-3' controlId='filterAndSort'>
 			<Row>
-				<Col xs={9}>
+				<Col>
 					<InputGroup>
 						<Form.Control
 							type='text'
@@ -26,7 +26,7 @@ const FilterAndSort = ({ filter, setFilter, handleFilterChange, filterValue, han
 					</InputGroup>
 				</Col>
 
-				<Col xs={3}>
+				<Col md={2}>
 					<Form.Control as='select' value={filter.sort} onChange={handleSortChange}>
 						<option value='none'>Без сортировки</option>
 						<option value='title'>По названию A-Z</option>

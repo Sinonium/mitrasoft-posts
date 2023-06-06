@@ -3,11 +3,11 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { getUserAsync, getUserByIdAsync } from '../../store/reducers/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import './index.scss';
 import UserCard from '../../components/UserCard';
 import UserPosts from '../../components/UserPosts';
 import FallbackComponent from '../../components/FallbackComponent';
 import NotFound from '../NotFound/NotFound';
+import './index.scss';
 
 const Details = () => {
 	const { user, loading } = useSelector((state) => state.user);

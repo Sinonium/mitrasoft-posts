@@ -34,8 +34,8 @@ const PostItem = ({ post, comments, loading }) => {
 	};
 
 	return (
-		<Row className='mb-3'>
-			<Card>
+		<Card className='mb-3'>
+			<Row className='px-3'>
 				<div className='post d-flex align-items-center'>
 					<Col xs='auto' className='post__image'>
 						<Link to={`/details/${post.userId}`}>
@@ -73,8 +73,8 @@ const PostItem = ({ post, comments, loading }) => {
 						)}
 					</>
 				)}
-			</Card>
-		</Row>
+			</Row>
+		</Card>
 	);
 };
 

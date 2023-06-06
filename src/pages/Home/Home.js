@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Col } from 'react-bootstrap';
 import PostList from '../../components/PostList';
 import { getPostsAsync } from '../../store/reducers/postReducer';
 import useDebounce from '../../hooks/useDebounce';
 import FilterAndSort from '../../components/FilterAndSort';
 import { useFilterSort } from '../../hooks/useFilterSort';
 import FallbackComponent from '../../components/FallbackComponent';
-import './index.scss';
-import { Col } from 'react-bootstrap';
 import PaginationComponent from '../../components/UI/PaginationComponent';
+import './index.scss';
 
 const Home = ({ isSmallScreen }) => {
 	const dispatch = useDispatch();
@@ -16,26 +16,29 @@ const Home = ({ isSmallScreen }) => {
 	const [filter, setFilter] = useState({ sort: '', query: '' });
 	const [filterValueDebounced, setFilterValueDebounced] = useState('');
 	const [activePage, setActivePage] = useState(1);
-	const totalPages = 10;
+	const postsPerPage = 10;
 
-	const debouncedFilter = useDebounce(filterValueDebounced, 700);
-	const sortedAndSearchedPosts = useFilterSort(posts, filter.sort, debouncedFilter);
+	const debouncedFilterValue = useDebounce(filterValueDebounced, 700);
+	const filteredAndSortedPosts = useFilterSort(posts, filter.sort, debouncedFilterValue);
 
-	const handlePageChange = useCallback((pageNumber) => {
-		setActivePage(pageNumber);
-		dispatch(getPostsAsync({ _limit: 10, _page: pageNumber }));
-	}, []);
+	const startIndex = (activePage - 1) * postsPerPage;
+	const endIndex = startIndex + postsPerPage;
+	const visiblePosts = useMemo(
+		() => filteredAndSortedPosts.slice(startIndex, endIndex),
+		[endIndex, filteredAndSortedPosts, startIndex]
+	);
 
 	const handleFilterChange = useCallback((event) => {
 		setFilterValueDebounced(event.target.value);
+		setActivePage(1);
 	}, []);
 
-	const handleFilterClear = useCallback((event) => {
+	const handleFilterClear = useCallback(() => {
 		setFilterValueDebounced('');
 	}, []);
 
 	useEffect(() => {
-		dispatch(getPostsAsync({ _limit: 10 }));
+		dispatch(getPostsAsync());
 	}, []);
 
 	return (
@@ -47,23 +50,23 @@ const Home = ({ isSmallScreen }) => {
 				handleFilterChange={handleFilterChange}
 				handleFilterClear={handleFilterClear}
 			/>
-			{!loading ? (
-				<h1>Список постов {sortedAndSearchedPosts?.length === 0 && 'пуст'}</h1>
-			) : (
-				<FallbackComponent />
-			)}
-			{posts && sortedAndSearchedPosts.length > 0 && (
-				<PostList posts={sortedAndSearchedPosts} />
-			)}
+			{loading && <FallbackComponent />}
 			{!loading && (
-				<Col className='d-flex justify-content-center'>
-					<PaginationComponent
-						isSmallScreen={isSmallScreen}
-						activePage={activePage}
-						totalPages={totalPages}
-						onPageChange={handlePageChange}
-					/>
-				</Col>
+				<>
+					{visiblePosts.length > 0 ? (
+						<PostList posts={visiblePosts} />
+					) : (
+						<p>Нет подходящих постов</p>
+					)}
+					<Col className='d-flex justify-content-center'>
+						<PaginationComponent
+							isSmallScreen={isSmallScreen}
+							activePage={activePage}
+							totalPages={Math.ceil(filteredAndSortedPosts.length / postsPerPage)}
+							onPageChange={setActivePage}
+						/>
+					</Col>
+				</>
 			)}
 		</>
 	);
