@@ -6,7 +6,7 @@ import { FaBars } from 'react-icons/fa';
 const Header = ({ isMobile }) => {
 	return (
 		<header className='header'>
-			<Navbar className='mb-3' expand='md' variant='dark' bg='dark'>
+			<Navbar className='mb-3' expand='md' variant='primary' bg='primary'>
 				<Container>
 					<Navbar.Toggle aria-controls='navbar-dark-mobile' />
 					{isMobile ? (
@@ -43,7 +43,7 @@ const Header = ({ isMobile }) => {
 									drop='start'
 									id='nav-dropdown-dark-example'
 									title={<FaBars />}
-									menuVariant='dark'>
+									menuVariant='primary'>
 									<NavDropdown.Item exact='true' as={Link} to='/'>
 										Список постов
 									</NavDropdown.Item>
