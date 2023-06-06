@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Button, Col, Row } from 'react-bootstrap';
+import { Link, useParams } from 'react-router-dom';
 import { getUserAsync, getUserByIdAsync } from '../../store/reducers/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import './index.scss';
@@ -15,7 +15,7 @@ const Details = () => {
 	const params = useParams();
 	const dispatch = useDispatch();
 	useEffect(() => {
-    dispatch(getUserAsync(params.id));
+		dispatch(getUserAsync(params.id));
 		dispatch(getUserByIdAsync(params.id));
 	}, []);
 
@@ -24,7 +24,7 @@ const Details = () => {
 	}
 
 	if (posts.length === 0) {
-		return <NotFound user/>
+		return <NotFound user />;
 	}
 
 	return (
@@ -35,6 +35,9 @@ const Details = () => {
 			<Col md={8}>
 				<UserPosts posts={posts} />
 			</Col>
+			<div className='text-center my-3'>
+				<Button as={Link} to='/'>Вернуться на главную</Button>
+			</div>
 		</Row>
 	);
 };

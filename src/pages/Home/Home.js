@@ -10,7 +10,7 @@ import './index.scss';
 import { Col } from 'react-bootstrap';
 import PaginationComponent from '../../components/UI/PaginationComponent';
 
-const Home = () => {
+const Home = ({ isSmallScreen }) => {
 	const dispatch = useDispatch();
 	const { posts, loading, error } = useSelector((state) => state.post);
 	const [filter, setFilter] = useState({ sort: '', query: '' });
@@ -50,13 +50,16 @@ const Home = () => {
 			{posts && sortedAndSearchedPosts.length > 0 && (
 				<PostList posts={sortedAndSearchedPosts} />
 			)}
-			<Col className='d-flex justify-content-center'>
-				<PaginationComponent
-					activePage={activePage}
-					totalPages={totalPages}
-					onPageChange={handlePageChange}
-				/>
-			</Col>
+			{!loading && (
+				<Col className='d-flex justify-content-center'>
+					<PaginationComponent
+						isSmallScreen={isSmallScreen}
+						activePage={activePage}
+						totalPages={totalPages}
+						onPageChange={handlePageChange}
+					/>
+				</Col>
+			)}
 		</>
 	);
 };

@@ -7,7 +7,7 @@ const PostList = ({ posts }) => {
 			{posts &&
 				posts?.length > 0 &&
 				posts?.map((post) => (
-					<PostItem post={post}/>
+					<PostItem key={post.id} post={post}/>
 				))}
 		</>
 	);
