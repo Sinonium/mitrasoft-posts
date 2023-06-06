@@ -23,35 +23,33 @@ const About = () => {
 					собственные реализации тех или иных фич, от верстки на "чистом" css, до
 					различных алгоритмов.
 				</p>
-				<p>
-					Иногда решаю алгоритмические задачи: <br />
-					<ul>
-						<li>
-							<a
-								href='https://leetcode.com/sinoniumx/'
-								target='_blank'
-								rel='noopener noreferrer'>
-								Leetcode
-							</a>
-						</li>
-						<li>
-							<a
-								href='https://www.codewars.com/users/sinoniumx'
-								target='_blank'
-								rel='noopener noreferrer'>
-								CodeWars
-							</a>
-						</li>
-					</ul>
-				</p>
+				<ul>
+					<p>
+						Иногда решаю алгоритмические задачи: <br />
+					</p>
+					<li>
+						<a
+							href='https://leetcode.com/sinoniumx/'
+							target='_blank'
+							rel='noopener noreferrer'>
+							Leetcode
+						</a>
+					</li>
+					<li>
+						<a
+							href='https://www.codewars.com/users/sinoniumx'
+							target='_blank'
+							rel='noopener noreferrer'>
+							CodeWars
+						</a>
+					</li>
+				</ul>
 				<p style={{ fontSize: '12px' }}>
 					Веду здоровый, активный образ жизни, читаю "программисткую" литературу, быстро
 					обучаюсь, имею живой интерес к тому, чем занимаюсь, стараюсь постоянно
 					совершенствоваться, познавать новое.
 				</p>
-        <p>
-          Спасибо за уделенное время и внимание!
-        </p>
+				<p>Спасибо за уделенное время и внимание!</p>
 			</Col>
 		</Row>
 	);

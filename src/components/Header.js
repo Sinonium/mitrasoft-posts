@@ -15,10 +15,10 @@ const Header = ({ isMobile }) => {
 							className='justify-content-between'
 							id='navbar-dark-mobile'>
 							<Nav>
-								<Nav.Link exact as={Link} to='/'>
+								<Nav.Link exact='true' as={Link} to='/'>
 									Список постов
 								</Nav.Link>
-								<Nav.Link exact as={Link} to='/about'>
+								<Nav.Link exact='true' as={Link} to='/about'>
 									Обо мне
 								</Nav.Link>
 								<Nav.Item disabled>
@@ -44,10 +44,10 @@ const Header = ({ isMobile }) => {
 									id='nav-dropdown-dark-example'
 									title={<FaBars />}
 									menuVariant='dark'>
-									<NavDropdown.Item exact as={Link} to='/'>
+									<NavDropdown.Item exact='true' as={Link} to='/'>
 										Список постов
 									</NavDropdown.Item>
-									<NavDropdown.Item exact as={Link} to='/about'>
+									<NavDropdown.Item exact='true' as={Link} to='/about'>
 										Обо мне
 									</NavDropdown.Item>
 									<NavDropdown.Divider />

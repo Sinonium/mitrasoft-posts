@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PostList from '../../components/PostList';
 import { getPostsAsync } from '../../store/reducers/postReducer';
@@ -21,14 +21,18 @@ const Home = ({ isSmallScreen }) => {
 	const debouncedFilter = useDebounce(filterValueDebounced, 700);
 	const sortedAndSearchedPosts = useFilterSort(posts, filter.sort, debouncedFilter);
 
-	const handlePageChange = (pageNumber) => {
+	const handlePageChange = useCallback((pageNumber) => {
 		setActivePage(pageNumber);
 		dispatch(getPostsAsync({ _limit: 10, _page: pageNumber }));
-	};
+	}, []);
 
-	const handleFilterChange = (event) => {
+	const handleFilterChange = useCallback((event) => {
 		setFilterValueDebounced(event.target.value);
-	};
+	}, []);
+
+	const handleFilterClear = useCallback((event) => {
+		setFilterValueDebounced('');
+	}, []);
 
 	useEffect(() => {
 		dispatch(getPostsAsync({ _limit: 10 }));
@@ -41,6 +45,7 @@ const Home = ({ isSmallScreen }) => {
 				setFilter={setFilter}
 				filterValue={filterValueDebounced}
 				handleFilterChange={handleFilterChange}
+				handleFilterClear={handleFilterClear}
 			/>
 			{!loading ? (
 				<h1>Список постов {sortedAndSearchedPosts?.length === 0 && 'пуст'}</h1>

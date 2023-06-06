@@ -2,6 +2,7 @@ const initialState = {
 	posts: [],
 	comments: {},
 	loading: false,
+	commentsLoading: false,
 	error: null,
 	page: 1,
 	limit: 10,
@@ -40,7 +41,7 @@ export const postReducer = (state = initialState, action) => {
 		case GET_POSTS_COMMENTS_RESPONSE:
 			return {
 				...state,
-				loading: true,
+				commentsLoading: true,
 			};
 		case GET_POSTS_COMMENTS_RESPONSE_SUCCESS:
 			return {
@@ -49,13 +50,13 @@ export const postReducer = (state = initialState, action) => {
 					...state.comments,
 					[action.payload.id]: action.payload.comments,
 				 },
-				loading: false,
+				 commentsLoading: false,
 			};
 		case GET_POSTS_COMMENTS_RESPONSE_ERROR:
 			return {
 				...state,
 				error: action.payload,
-				loading: false,
+				commentsLoading: false,
 			};
 		default:
 			return state;
